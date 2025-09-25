@@ -10,15 +10,15 @@ from mcstatus import JavaServer
 load_dotenv()
 # Bot configuration\
 TOKEN = os.getenv('DISCORD_TOKEN')
-PREFIX = "!"
-SERVER_IP = '147.185.221.31:36571'
-SERVER_PORT = 'list-required.gl.joinmc.link'
+PREFIX = "/"
+SERVER_IP = '147.185.221.31'
+SERVER_PORT = '36571'
 
 
 ### Bot Setup
 
-intends = discord.Intents.default()
-bot = commands.Bot(command_prefix=PREFIX, intents=intends)
+intents = discord.Intents.default()
+bot = commands.Bot(command_prefix=PREFIX, intents=intents)
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 ## BASIC COMMANDS
 
