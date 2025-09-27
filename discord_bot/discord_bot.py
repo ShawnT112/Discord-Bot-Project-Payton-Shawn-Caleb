@@ -23,7 +23,12 @@ handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w'
 # BASIC COMMANDS
 @tree.command(name="ping", description="Check if the bot is alive", guild=discord.Object(id=GUILD_ID))
 async def ping(interaction: discord.Interaction):
-    await interaction.response.send_message("Pong!")
+    if interaction.user.id == 395758958876295198:
+        await interaction.response.send_message("Cheese Pizza!")
+    else:
+        await interaction.response.send_message("Pong!")
+
+
 
 # SERVER STATUS
 @tree.command(name="status", description="Check the Minecraft server status", guild=discord.Object(id=GUILD_ID))
