@@ -12,9 +12,11 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 SERVER_IP = '147.185.221.31'
 SERVER_PORT = 36571
 GUILD_ID = 1412905826783465605
+ROLE_ID = 1421569616441905255
 
 ### Bot Setup
 intents = discord.Intents.default()
+intents.members = True  
 bot = discord.Client(intents=intents)
 tree = discord.app_commands.CommandTree(bot)
 
@@ -72,6 +74,20 @@ async def shutdown(interaction: discord.Interaction):
 
 
 
+
+#ROLE JOIN
+@bot.event
+async def on_member_join(member: discord.Member):
+    role = member.guild.get_role(ROLE_ID)
+    if role:
+        try:
+            await member.add_roles(role)
+            print(f"Assigned role to {member.name}")
+        except Exception as e:
+            print(f"Failed to assign role to {member.name}: {e}")
+    else:
+        print(f"Role with ID {ROLE_ID} not found.")
+
 # READY EVENT
 @bot.event
 async def on_ready():
@@ -85,6 +101,9 @@ async def on_ready():
 
     print(f"✅Logged in as {bot.user}")
     print(f"✅Slash commands synced to guild {GUILD_ID}")
+
+
+
 
 # RUN
 if __name__ == "__main__":
