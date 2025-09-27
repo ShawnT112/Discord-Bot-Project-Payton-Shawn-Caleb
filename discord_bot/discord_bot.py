@@ -75,6 +75,30 @@ async def shutdown(interaction: discord.Interaction):
 
 
 
+@tree.command(name="jointeam", description="Join a team by number (1-10)", guild=discord.Object(id=GUILD_ID))
+async def jointeam(interaction: discord.Interaction, team_number: int):
+    if team_number < 1 or team_number > 10:
+        await interaction.response.send_message("Please pick a team number between 1 and 10.", ephemeral=True)
+        return
+
+    role_name = f"Team {team_number}"
+    role = discord.utils.get(interaction.guild.roles, name=role_name)
+
+    if role:
+        # remove any other team roles first (optional)
+        for r in interaction.user.roles:
+            if r.name.startswith("Team "):
+                await interaction.user.remove_roles(r)
+
+        # add the new role
+        await interaction.user.add_roles(role)
+        await interaction.response.send_message(f"You joined **{role_name}**!")
+    else:
+        await interaction.response.send_message(f"Role `{role_name}` not found. Ask an admin to create it.", ephemeral=True)
+
+
+
+
 #ROLE JOIN
 @bot.event
 async def on_member_join(member: discord.Member):
