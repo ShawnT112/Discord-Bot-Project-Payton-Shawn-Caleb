@@ -31,11 +31,21 @@ async def status(interaction: discord.Interaction):
     try:
         server = JavaServer.lookup(f"{SERVER_IP}:{SERVER_PORT}")
         status = server.status()
-        await interaction.response.send_message(
-            f"Server is online with {status.players.online} players!"
-        )
+       
+        if status.players.sample:
+            player_list = ", ".join([player.name for player in status.players.sample])
+            await interaction.response.send_message(
+                f"Server is online with {status.players.online} players!\n"
+                f"Online: {player_list}"
+            )
+        else:
+            await interaction.response.send_message(
+                f"Server is online with {status.players.online} players!\n"
+                f"No player names available."
+            )
     except Exception:
         await interaction.response.send_message("Server is offline.")
+
 
 
 @tree.command(name="serverinfo", description="Show the Minecraft server's IP and port", guild=discord.Object(id=GUILD_ID))
@@ -68,8 +78,8 @@ async def on_ready():
     # register guild-only commands instantly
     await tree.sync(guild=guild)
 
-    print(f"Logged in as {bot.user}")
-    print(f"Slash commands synced to guild {GUILD_ID}")
+    print(f"✅Logged in as {bot.user}")
+    print(f"✅Slash commands synced to guild {GUILD_ID}")
 
 # RUN
 if __name__ == "__main__":
