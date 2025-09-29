@@ -55,14 +55,27 @@ How it works: If called by the authorized owner, the bot sends a shutdown messag
 Community Value: Allows the server administrator to shut down or restart the bot safely for updates and maintenance without manual process management.
 
 
-5. /Jointeam
+5. /.jointeam
 Complexity: L
 
 
 Activation: Slash command
 
 
-How it works: 
+How it works:
+ Lets a user pick a numbered team role (1–10). When a user runs /jointeam <team_number>, the bot:
+Validates the number is between 1 and 10.
 
 
-Community Value:.
+Removes any other “Team X” roles the user already has.
+
+
+Adds the matching role (e.g., “Team 3”).
+
+
+Replies with a confirmation.
+ If the role doesn’t exist, it replies telling the user to ask an admin to create it.
+
+
+Community Value:
+ Keeps team assignment self-serve and tidy, prevents multi-team confusion, and speeds up event or tournament setup without moderator overhead.
